@@ -27,9 +27,10 @@ function App() {
   const [disableForEmail,setDisableForEmail] = useState(true)
   const [disableForPh,setDisableForPh] = useState(true)
 
-  let confirmationPw = ""
+  const [confirmationPw, setConfirmationPw] = useState("")
 
   const handler = (e) => {
+    console.log(confirmationPw, pw)
     e.preventDefault();
     if(optValue==="") setSelectErr("Please select any option")
     else setSelectErr("")
@@ -81,8 +82,8 @@ function App() {
       setOptValue(e.target.value);
     }
   };
-  const setConfirmationPw = (e) => {
-    confirmationPw = e.target.value
+  const checkConfirmationPw = (e) => {
+    setConfirmationPw(e.target.value)
   }
   const toggleVisibilty = () =>{
     setVisibility(!visibility)
@@ -237,7 +238,7 @@ function App() {
                   name="password_confirmation"
                   type={ipTypeOfPw}
                   maxLength="15"
-                  onChange={setConfirmationPw}
+                  onChange={checkConfirmationPw}
                 ></input>
                  <button  onClick={toggleVisibilty} className="eye-btn">{ visibility ? <VisibilityOffIcon/> : <VisibilityIcon/>  } </button>
                 </div>
