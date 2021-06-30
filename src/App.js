@@ -11,15 +11,22 @@ function App() {
   const [lNameErr, setLNameErr] = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [phNumErr, setPhNumErr] = useState("");
+  const [selectErr,setSelectErr] = useState("");
+  const [pwConfirmationErr, setPwConfirmationErr] = useState("")
   const [pwErr, setPwErr] = useState("");
+
   const [pw,setPw] = useState("")
   const [optValue,setOptValue] = useState("")
-  const [selectErr,setSelectErr] = useState("")
-  const [pwConfirmationErr, setPwConfirmationErr] = useState("")
+  const [email,setEmail] = useState(null);
+  const [phNum, setPhNum] = useState(null);
+  
+  
   const [visibility,setVisibility] = useState(false)
   const [ipTypeOfPw, setIpTypeOfPw] = useState("password")
+
   const [disableForEmail,setDisableForEmail] = useState(true)
   const [disableForPh,setDisableForPh] = useState(true)
+
   let confirmationPw = ""
 
   const handler = (e) => {
@@ -47,12 +54,14 @@ function App() {
   const validateEmail = (e) => {
     if (e.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
       setEmailErr("");
+      setEmail(e.target.value)
     } else {
       setEmailErr("Please enter valid email ID");
     }
   };
   const validatePhNum = (e) => {
     if (e.target.value.match(/^[6789]\d{9}$/i)) {   
+      setPhNum(e.target.value)
       setPhNumErr("");
     } else {
       setPhNumErr("Please enter valid mobile number");
@@ -80,10 +89,16 @@ function App() {
     visibility ? setIpTypeOfPw("password") : setIpTypeOfPw("text") 
   }
   const verifyEmail = () => {
+      if(email)
       setDisableForEmail(false)
+      else
+      setEmailErr("Please enter valid email ID");
   }
   const verifyPh = () => {
+    if(phNum)
     setDisableForPh(false)
+    else 
+    setPhNumErr("Please enter valid mobile number");
 }
 
   return (
