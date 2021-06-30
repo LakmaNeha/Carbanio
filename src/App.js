@@ -2,40 +2,42 @@ import ActivePage from "./ActivePage";
 import "./App.css";
 import Title from "./Title";
 import { useState } from "react";
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
 function App() {
   const [fNameErr, setFNameErr] = useState("");
   const [lNameErr, setLNameErr] = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [phNumErr, setPhNumErr] = useState("");
-  const [selectErr,setSelectErr] = useState("");
-  const [pwConfirmationErr, setPwConfirmationErr] = useState("")
+  const [selectErr, setSelectErr] = useState("");
+  const [pwConfirmationErr, setPwConfirmationErr] = useState("");
   const [pwErr, setPwErr] = useState("");
 
-  const [pw,setPw] = useState("")
-  const [optValue,setOptValue] = useState("")
-  const [email,setEmail] = useState(null);
+  const [pw, setPw] = useState("");
+  const [optValue, setOptValue] = useState("");
+  const [email, setEmail] = useState(null);
   const [phNum, setPhNum] = useState(null);
-  
-  
-  const [visibility,setVisibility] = useState(false)
-  const [ipTypeOfPw, setIpTypeOfPw] = useState("password")
 
-  const [disableForEmail,setDisableForEmail] = useState(true)
-  const [disableForPh,setDisableForPh] = useState(true)
+  const [visibility, setVisibility] = useState(false);
+  const [ipTypeOfPw, setIpTypeOfPw] = useState("password");
 
-  const [confirmationPw, setConfirmationPw] = useState("")
+  const [disableForEmail, setDisableForEmail] = useState(true);
+  const [disableForPh, setDisableForPh] = useState(true);
+
+  const [confirmationPw, setConfirmationPw] = useState("");
 
   const handler = (e) => {
-    console.log(confirmationPw, pw)
     e.preventDefault();
-    if(optValue==="") setSelectErr("Please select any option")
-    else setSelectErr("")
-    if(confirmationPw===pw) setPwConfirmationErr("")
-    else setPwConfirmationErr("Password does not match")
+    if (optValue === "") setSelectErr("Please select any option");
+    else setSelectErr("");
+    if (confirmationPw === pw) setPwConfirmationErr("");
+    else setPwConfirmationErr("Password does not match");
+      if (pwConfirmationErr === "") {
+      if (selectErr === "") {
+        alert("YAYYY!! Registered");
+      }
+    }
   };
 
   const changeHandlerFN = (e) => {
@@ -55,52 +57,47 @@ function App() {
   const validateEmail = (e) => {
     if (e.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
       setEmailErr("");
-      setEmail(e.target.value)
+      setEmail(e.target.value);
     } else {
       setEmailErr("Please enter valid email ID");
     }
   };
   const validatePhNum = (e) => {
-    if (e.target.value.match(/^[6789]\d{9}$/i)) {   
-      setPhNum(e.target.value)
+    if (e.target.value.match(/^[6789]\d{9}$/i)) {
+      setPhNum(e.target.value);
       setPhNumErr("");
     } else {
       setPhNumErr("Please enter valid mobile number");
     }
   };
   const validatePw = (e) => {
-    if (e.target.value.length<8) {   
+    if (e.target.value.length < 8) {
       setPwErr("Password must be minimum 8 characters");
     } else {
       setPwErr("");
-      setPw(e.target.value)
-
+      setPw(e.target.value);
     }
   };
   const setOpt = (e) => {
-    if (e.target.value) {   
+    if (e.target.value) {
       setOptValue(e.target.value);
     }
   };
   const checkConfirmationPw = (e) => {
-    setConfirmationPw(e.target.value)
-  }
-  const toggleVisibilty = () =>{
-    setVisibility(!visibility)
-    visibility ? setIpTypeOfPw("password") : setIpTypeOfPw("text") 
-  }
+    setConfirmationPw(e.target.value);
+  };
+  const toggleVisibilty = () => {
+    setVisibility(!visibility);
+    visibility ? setIpTypeOfPw("password") : setIpTypeOfPw("text");
+  };
   const verifyEmail = () => {
-      if(email)
-      setDisableForEmail(false)
-      else
-      setEmailErr("Please enter valid email ID");
-  }
+    if (email) setDisableForEmail(false);
+    else setEmailErr("Please enter valid email ID");
+  };
   const verifyPh = () => {
-    if(phNum)
-    setDisableForPh(false)
-    else 
-    setPhNumErr("Please enter valid mobile number");
-}
+    if (phNum) setDisableForPh(false);
+    else setPhNumErr("Please enter valid mobile number");
+  };
 
   return (
     <div className="App">
@@ -149,29 +146,79 @@ function App() {
                     type="email"
                     onChange={validateEmail}
                   ></input>
-                  <button onClick={verifyEmail} className="verify-btn">verify</button>   
+                  <div onClick={verifyEmail} className="verify-btn">
+                    verify
+                  </div>
                 </div>
                 <small style={{ color: "red" }}>{emailErr}</small>
               </div>
               <div className="label-input">
                 <label>Email OTP</label>
                 <div className="single-ipt">
-                <input  className={disableForEmail? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForEmail? "disabled" : "" } ></input>
+                  <input
+                    className={
+                      disableForEmail ? "otp-box style-color" : "otp-box"
+                    }
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForEmail ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForEmail? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForEmail? "disabled" : ""}></input>
+                  <input
+                    className={
+                      disableForEmail ? "otp-box style-color" : "otp-box"
+                    }
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForEmail ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForEmail? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForEmail? "disabled" : ""}></input>
+                  <input
+                    className={
+                      disableForEmail ? "otp-box style-color" : "otp-box"
+                    }
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForEmail ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForEmail? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForEmail? "disabled" : ""}></input>
+                  <input
+                    className={
+                      disableForEmail ? "otp-box style-color" : "otp-box"
+                    }
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForEmail ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForEmail? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForEmail? "disabled" : ""}></input>
+                  <input
+                    className={
+                      disableForEmail ? "otp-box style-color" : "otp-box"
+                    }
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForEmail ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForEmail? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForEmail? "disabled" : ""}></input>
+                  <input
+                    className={
+                      disableForEmail ? "otp-box style-color" : "otp-box"
+                    }
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForEmail ? "disabled" : ""}
+                  ></input>
                 </div>
               </div>
             </div>
@@ -188,29 +235,67 @@ function App() {
                     pattern="[789][0-9]{9}"
                     onChange={validatePhNum}
                   ></input>
-                  <button onClick={verifyPh} className="verify-btn">verify</button>
+                  <div onClick={verifyPh} className="verify-btn">
+                    verify
+                  </div>
                 </div>
                 <small style={{ color: "red" }}>{phNumErr}</small>
               </div>
               <div className="label-input">
                 <label>Mobile OTP</label>
                 <div className="single-ipt">
-                <input  className={disableForPh? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForPh? "disabled" : "" } ></input>
+                  <input
+                    className={disableForPh ? "otp-box style-color" : "otp-box"}
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForPh ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForPh? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForPh? "disabled" : ""}></input>
+                  <input
+                    className={disableForPh ? "otp-box style-color" : "otp-box"}
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForPh ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForPh? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForPh? "disabled" : ""}></input>
+                  <input
+                    className={disableForPh ? "otp-box style-color" : "otp-box"}
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForPh ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForPh? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForPh? "disabled" : ""}></input>
+                  <input
+                    className={disableForPh ? "otp-box style-color" : "otp-box"}
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForPh ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForPh? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForPh? "disabled" : ""}></input>
+                  <input
+                    className={disableForPh ? "otp-box style-color" : "otp-box"}
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForPh ? "disabled" : ""}
+                  ></input>
                 </div>
                 <div className="single-ipt">
-                <input className={disableForPh? "otp-box style-color" : "otp-box" } type="text" placeholder="0" maxLength="1"  disabled={disableForPh? "disabled" : ""}></input>
+                  <input
+                    className={disableForPh ? "otp-box style-color" : "otp-box"}
+                    type="text"
+                    placeholder="0"
+                    maxLength="1"
+                    disabled={disableForPh ? "disabled" : ""}
+                  ></input>
                 </div>
               </div>
             </div>
@@ -219,28 +304,32 @@ function App() {
               <div className="label-input">
                 <label>Password</label>
                 <div className="ipt">
-                <input
-                  placeholder="********"
-                  name="password"
-                  type={ipTypeOfPw}
-                  maxLength="15"
-                  onChange={validatePw}
-                ></input>
-                <button  onClick={toggleVisibilty} className="eye-btn">{ visibility ? <VisibilityOffIcon/> : <VisibilityIcon/>  } </button>
+                  <input
+                    placeholder="********"
+                    name="password"
+                    type={ipTypeOfPw}
+                    maxLength="15"
+                    onChange={validatePw}
+                  ></input>
+                  <div onClick={toggleVisibilty} className="eye-btn">
+                    {visibility ? <VisibilityOffIcon /> : <VisibilityIcon />}{" "}
+                  </div>
                 </div>
                 <small style={{ color: "red" }}>{pwErr}</small>
               </div>
               <div className="label-input">
                 <label>Confirm Password</label>
                 <div className="ipt">
-                <input
-                  placeholder="********"
-                  name="password_confirmation"
-                  type={ipTypeOfPw}
-                  maxLength="15"
-                  onChange={checkConfirmationPw}
-                ></input>
-                 <button  onClick={toggleVisibilty} className="eye-btn">{ visibility ? <VisibilityOffIcon/> : <VisibilityIcon/>  } </button>
+                  <input
+                    placeholder="********"
+                    name="password_confirmation"
+                    type={ipTypeOfPw}
+                    maxLength="15"
+                    onChange={checkConfirmationPw}
+                  ></input>
+                  <div onClick={toggleVisibilty} className="eye-btn">
+                    {visibility ? <VisibilityOffIcon /> : <VisibilityIcon />}{" "}
+                  </div>
                 </div>
                 <small style={{ color: "red" }}>{pwConfirmationErr}</small>
               </div>
@@ -257,11 +346,7 @@ function App() {
                   aria-hidden="true"
                   onChange={setOpt}
                 >
-                  <option
-                    selected
-                    disabled
-                    value="0"
-                  >
+                  <option selected disabled value="0">
                     Click to Select…
                   </option>
                   <option value="1">I found in Google / Internet search</option>
@@ -279,7 +364,6 @@ function App() {
                   <option value="7">
                     I read a digital article about Carbanio{" "}
                   </option>
-                  
                 </select>
                 <small style={{ color: "red" }}>{selectErr}</small>
               </div>
